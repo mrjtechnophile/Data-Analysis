@@ -1,0 +1,57 @@
+/*
+The coin change problem is a classic algorithmic problem in computer science.
+Given a target amount of money and a list of available coin denominations, the goal is to
+determine the minimum number of coins required to make up the target amount.
+
+Here's a Java implementation of the coin change problem using dynamic programming:
+
+*/
+
+public class CoinChangeProblem {
+
+    public static int minCoins(int[] coins, int targetAmount) {
+        int[] dp = new int[targetAmount + 1];
+
+        for (int i = 1; i <= targetAmount; i++) {
+            dp[i] = Integer.MAX_VALUE;
+            for (int j = 0; j < coins.length; j++) {
+                if (coins[j] <= i && dp[i - coins[j]] != Integer.MAX_VALUE) {
+                    dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
+                }
+            }
+        }
+
+        return dp[targetAmount] == Integer.MAX_VALUE ? -1 : dp[targetAmount];
+    }
+
+    public static void main(String[] args) {
+        int[] coins = {1, 5, 10, 25};
+        int targetAmount = 63;
+        int minCoins = minCoins(coins, targetAmount);
+        System.out.println("Minimum number of coins required: " + minCoins);
+    }
+}
+
+/*
+
+In this implementation, we use an array dp to store the minimum number of coins required to make up each target amount from 0 to targetAmount. We initialize dp[0] to 0 and all other values to Integer.MAX_VALUE.
+
+We then loop through each target amount from 1 to targetAmount, and for each amount, we loop through each coin denomination. If the coin denomination is less than or equal to the target amount and there exists a solution for the remaining amount (i.e., dp[i - coins[j]] != Integer.MAX_VALUE), we update dp[i] to be the minimum of its current value and the value of dp[i - coins[j]] + 1.
+
+Finally, we return the value of dp[targetAmount], which represents the minimum number of coins required to make up the target amount. If dp[targetAmount] is still equal to Integer.MAX_VALUE, it means that it's not possible to make up the target amount using the available coins, so we return -1.
+
+
+
+
+
+हमारे पास निर्धारित राशि और उपलब्ध सिक्कों की सूची होती है। मुझे इस सूची में से कुछ सिक्के चुनने होंगे ताकि निर्धारित राशि बनाने के लिए सबसे कम सिक्के की संख्या का पता लगाया जा सके।
+
+एक सामान्य तरीका है कि हम इस समस्या को डाइनामिक प्रोग्रामिंग के माध्यम से हल कर सकते हैं। हम एक एरे में उत्तर संग्रह करते हुए समस्या का हल निकालते हैं। आइए इस समस्या के लिए डाइनामिक प्रोग्रामिंग का उपयोग करके इसे हल करें।
+
+यदि हमारी निर्धारित राशि 0 है, तो हमें कोई सिक्का नहीं चाहिए। इसलिए इस स्थिति में हम शून्य की संख्या लौटाते हैं। अन्यथा, हम अपनी एक सोची समझी अधिकतम संख्या का उपयोग करके उत्तर के लिए न्यूनतम सिक्कों की संख्या को निकालने का प्रयास करेंगे। उत्तर संग्रह को पूरा करने के लिए, हम प्रत्येक निश्चित राशि के लिए सभी संभव उत्तरों का निर्धारण करेंगे।
+
+यदि हम एक सिक्का जोड़ते हैं और उत्तर में उत्तर मिलता है,
+
+*/
+
+
